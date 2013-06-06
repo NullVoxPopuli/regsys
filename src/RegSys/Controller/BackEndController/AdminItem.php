@@ -18,7 +18,7 @@ class AdminItem extends \RegSys\Controller\BackEndController
 		if (!empty($_POST)) {
 			$item = new \RegSys\Entity\Item($_POST);
 			$validationErrors = $item->validate();
-			
+
 			if (!$validationErrors) {
 				if (!$editing) {
 					$this->db->query('INSERT regsys__items VALUES (?, NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?);', array(

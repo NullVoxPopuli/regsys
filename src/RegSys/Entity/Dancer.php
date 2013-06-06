@@ -525,6 +525,18 @@ class Dancer extends \RegSys\Entity
 						}
 					}
 				}
+				elseif ($item->meta() == "CrossoverJJ"){
+					if (!isset($meta[$item->id()]) or !in_array($meta[$item->id()], array("Lead", "Follow"))){
+						if ($this->position != null && $this->level != null) {
+							// $meta[$item->id()] = !$this->position ? "Lead" : "Follow";
+							// $meta[id] = $meta[id]['position'] . '/' . $meta[id]['level'];
+
+						} else {
+							$validationErrors['item' . $item->id()] = sprintf('Can\'t determine position or level for %s.', $item->name());
+							continue;
+						}
+					}
+				}
 			}
 			elseif ($item->type() == 'shirt') {
 				if ($value == 'None' or !in_array($value, explode(',', $item->description()))) {
