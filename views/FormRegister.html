@@ -299,11 +299,11 @@
 		<fieldset id="payment">
 			{{- form.radios('', 'paymentMethod', [
 				{'value': 'PayPal', 'label': 'PayPal' ~ (options.paypalFee ? ' ($%d processing fee)' | format(options.paypalFee) : ''), 'disabled': ('now' | date('U')) > event.datePayPal},
-				{'value': 'Mail',   'label': 'Mail'   ~ (options.postmarkWithin ? ' (Check must be postmarked by August 19th, 2013. Sending money earlier is ok too. )' | format(options.postmarkWithin) : ''), 'disabled': ('now' | date('U')) > event.dateMail},
+				{'value': 'Mail',   'label': 'Mail'   ~ (options.postmarkWithin ? ' (Check must be postmarked by August 19th, 2013. Sending money earlier very much appreciated. )' | format(options.postmarkWithin) : ''), 'disabled': ('now' | date('U')) > event.dateMail},
 				]) }}
 
-<!-- 			<p class="caption">Refunds are available until {{ event.date_refund_end | date('F jS') }} at the discretion of {{ options.payableTo }}.</p>
- -->			<p class="caption">Refunds are available until Augest 19th, 2013 at the discretion of {{ options.payableTo }}.</p>
+ 			<p class="caption">Refunds are available until Augest 19th, 2013 at the discretion of {{ options.payableTo }}.</p>
+			<!-- <p class="caption">Refunds are available until {{ event.dateRefund | date('F jS') }} at the discretion of {{ options.payableTo }}.</p> -->
 		</fieldset>
 
 		<div id="submit"><input type="submit" value="Continue&hellip;"></div>

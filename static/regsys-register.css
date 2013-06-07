@@ -8,16 +8,23 @@ margin-bottom: 1em;
 
 #regsys #submit input {
 margin: 0 auto;
-padding: 0.2em 0.5em;
-background-color: #fff;
 border: 1px solid #d9d9d9;
--webkit-border-radius: 8px;
--moz-border-radius: 8px;
 cursor: pointer;
+
+font-size: 20px;
+background: #1AA1E2;
+box-shadow: none;
+/*-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;*/
+color: white;
+box-shadow: 0 2px 2px 0px black;
+line-height: 23px;
 }
 
 #regsys #submit input:hover {
 background-color: #ff7;
+background: #1A5E90;
 }
 
 
@@ -86,6 +93,17 @@ margin-top: -1px;
 #regsys-form table, div#regsys table {
 width: 100%;
 margin-bottom: 0px;
+}
+
+#regsys-confirm table {
+	/*width: auto;*/
+	margin-bottom: 10px;
+}
+#regsys-confirm td {
+	padding: 5px;
+}
+#regsys-confirm tr:nth-child(even){
+	background: #d8d8d8;
 }
 
 #regsys-form thead th, div#regsys thead th {

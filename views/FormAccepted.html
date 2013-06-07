@@ -21,10 +21,10 @@
 
 		<p>(Note that checks are processed in batches, so there will be a delay in cashing your check after it is received.)</p>
 		{%- endif %}
-		<p>Your payment must be {{ dancer.paymentMethod == 'Mail' ? 'postmarked' : 'received in full' }} by {{ dancer.datePostmarkBy | date('F jS') }}.
+		<p>Your payment must be {{ dancer.paymentMethod == 'Mail' ? 'postmarked' : 'received in full' }} by August 19th, 2013.<!--  {{ dancer.datePostmarkBy | date('F jS') }}. -->
 		If payment is not received on time you will forfeit your registration. You will have to register again &mdash; with the going price and subject to availability &mdash; to secure your reservation.</p>
 
-		<p>Refunds are available until {{ event.dateRefund | date('F jS') }} at the discretion of {{ options.payableTo }}.</p>
+		<p>Refunds are available until August 19th, 2013<!-- {{ event.dateRefund | date('F jS') }} --> at the discretion of {{ options.payableTo }}.</p>
 		{%- endif %}
 
 		{% if confirmationEmailFailed -%}

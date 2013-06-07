@@ -114,5 +114,9 @@
 			<input type="submit" value="Confirm Registration">
 			<script type="text/javascript">jQuery(document).ready(function($) { $('#submit').append("\t" + '<a href="javascript:history.go(-1)" style="margin-left:2em">Make Changes</a>' + "\n\t\t"); });</script>
 		</div>
+
+		<p>Please mail your check for <strong>{{ '$' ~ dancer.priceTotal }}</strong> (made out to <em>{{ options.payableTo }}</em>), along with your name and email address, to:</p>
+		<p style="font-weight: bold;">{{ options.mailingAddress | nl2br }}</p>
+
 	</form>
 {% endblock %}
