@@ -32,7 +32,8 @@
 				]) }}
 
 			{% if event.hasLevels -%}
-			{{- form.radios('Level', 'levelID', event.levelsForRegistrationForm) }}
+			<a href="http://www.swingin.org/2013/06/classes/" target="_blank">Information about Levels</a>
+			{{- form.radios('Level ', 'levelID', event.levelsForRegistrationForm) }}
 			{%- endif %}
 
 			{% if event.hasVolunteers -%}
@@ -157,7 +158,7 @@
 
 				</tbody>
 			</table>
-			<a href="http://www.swingin.org/2013/06/competitions/">Competition Information and Descriptions</a>
+			<a href="http://www.swingin.org/2013/06/competitions/" target="_blank">Competition Information and Descriptions</a>
 		</fieldset>
 		{%- endif %}
 
@@ -278,7 +279,7 @@
 				{'label': 'Night Owl',     'value': 2},
 				]) }}
 
-			{{- form.textarea('Comments:', 'housingNeeded[housingComment]') }}
+			{{- form.textarea('Comments  (Carpool situation, people you would / would not like to be housed with, etc):', 'housingNeeded[housingComment]') }}
 		</fieldset>
 		{%- else -%}
 		<h2>
@@ -298,10 +299,11 @@
 		<fieldset id="payment">
 			{{- form.radios('', 'paymentMethod', [
 				{'value': 'PayPal', 'label': 'PayPal' ~ (options.paypalFee ? ' ($%d processing fee)' | format(options.paypalFee) : ''), 'disabled': ('now' | date('U')) > event.datePayPal},
-				{'value': 'Mail',   'label': 'Mail'   ~ (options.postmarkWithin ? ' (Check must be postmarked within %d days from date of registration.)' | format(options.postmarkWithin) : ''), 'disabled': ('now' | date('U')) > event.dateMail},
+				{'value': 'Mail',   'label': 'Mail'   ~ (options.postmarkWithin ? ' (Check must be postmarked by August 19th, 2013. Sending money earlier is ok too. )' | format(options.postmarkWithin) : ''), 'disabled': ('now' | date('U')) > event.dateMail},
 				]) }}
 
-			<p class="caption">Refunds are available until {{ event.date_refund_end | date('F jS') }} at the discretion of {{ options.payableTo }}.</p>
+<!-- 			<p class="caption">Refunds are available until {{ event.date_refund_end | date('F jS') }} at the discretion of {{ options.payableTo }}.</p>
+ -->			<p class="caption">Refunds are available until Augest 19th, 2013 at the discretion of {{ options.payableTo }}.</p>
 		</fieldset>
 
 		<div id="submit"><input type="submit" value="Continue&hellip;"></div>
