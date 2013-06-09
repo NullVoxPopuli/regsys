@@ -20,7 +20,8 @@
 			{{- form.text('Last  Name:',      'lastName')  }}
 			{{- form.text('Email Address:',   'email', 'email') }}
 			{{- form.text('Confirm Address:', 'confirmEmail', 'email') }}
-			{{- form.text('Mobile Phone:',    'phone', 'tel') }}
+			{{- form.text('Mobile Phone:',    'phone') }}
+
 
 			{% if event.hasDiscounts -%}
 			{{- form.text('Discount Code:', 'discountCode') }}
