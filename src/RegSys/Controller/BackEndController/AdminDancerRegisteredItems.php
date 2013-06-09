@@ -9,6 +9,7 @@ class AdminDancerRegisteredItems extends \RegSys\Controller\BackEndController
 		$dancer = $this->getRequestedDancer();
 		
 		if (!empty($_POST)) {
+			$validationErrors = array();
 			$paymentOwed = $dancer->paymentOwed();
 			
 			if (isset($_POST['itemsAdd'])) {
@@ -20,26 +21,28 @@ class AdminDancerRegisteredItems extends \RegSys\Controller\BackEndController
 				
 				if (!$validationErrors) {
 					foreach ($_POST['itemsAdd'] as $itemID => $temp) {
-						$item = $dancer->registeredItems($itemID); # Added during validation
+						# New items are already added to `registeredItems` during validation
+						$item = $dancer->registeredItems($itemID);
 						
-						$item->addRegistration($dancer->id());
-						
-						$paymentOwed = $paymentOwed + $item->registeredPrice();
+						if ($item instanceof \RegSys\Entity\Item) {
+							$item->addRegistration($dancer->id());
+							
+							$paymentOwed = $paymentOwed + $item->registeredPrice();
+						}
 						
 						unset($_POST['itemsAdd'][$itemID], $_POST['itemMeta'][$itemID]);
 					}
-				}
-				else {
-					$this->viewHelper->setErrors($validationErrors);
 				}
 			}
 			
 			if (isset($_POST['itemsDelete'])) {
 				foreach ($_POST['itemsDelete'] as $itemID => $temp) {
-					if ($dancer->registeredItems($itemID)) {
-						$paymentOwed = $paymentOwed - $dancer->registeredItems($itemID)->registeredPrice();
+					$item = $dancer->registeredItems($itemID);
+					
+					if ($item instanceof \RegSys\Entity\Item) {
+						$paymentOwed = $paymentOwed - $item->registeredPrice();
 						
-						$this->db->query('DELETE FROM regsys__registrations WHERE dancerID = ? AND itemID = ?', array($dancer->id(), $itemID));
+						$this->db->query('DELETE FROM regsys__registrations WHERE dancerID = ? AND itemID = ?', array($dancer->id(), $item->id()));
 					}
 					
 					unset($_POST['itemsDelete'][$itemID], $_POST['itemMeta'][$itemID]);
@@ -54,12 +57,30 @@ class AdminDancerRegisteredItems extends \RegSys\Controller\BackEndController
 				# Reload dancer to reset registeredItems
 				$dancer = $this->getRequestedDancer();
 				
-				foreach ($_POST['itemMeta'] as $itemID => $meta) {
-					if ($dancer->registeredItems($itemID) and $dancer->registeredItems($itemID)->registeredMeta() != $meta) {
-						$this->db->query('UPDATE regsys__registrations SET itemMeta = ? WHERE dancerID = ? AND itemID = ?', array($meta, $dancer->id(), $itemID));
+				foreach ($_POST['itemMeta'] as $itemID => $newMeta) {
+					 $item = $dancer->registeredItems($itemID);
+					
+					if ($item instanceof \RegSys\Entity\Item) {
+						if ($item->meta() == 'CrossoverJJ') {
+							if (isset($newMeta['position']) and isset($newMeta['level'])) {
+								$newMeta = $newMeta['position'] . '/' . $newMeta['level'];
+							}
+							else {
+								$validationErrors['item' . $item->id()] = sprintf('Position and level must be specified for %s.', $item->name());
+								continue;
+							}
+						}
+						
+						if ($item->registeredMeta() != $newMeta) {
+							$this->db->query('UPDATE regsys__registrations SET itemMeta = ? WHERE dancerID = ? AND itemID = ?', array($newMeta, $dancer->id(), $item->id()));
+						}
 					}
+					
+					unset($_POST['itemMeta'][$itemID]);
 				}
 			}
+			
+			$this->viewHelper->setErrors($validationErrors);
 			
 			# Reload dancer to reset registeredItems
 			$dancer = $this->getRequestedDancer();
