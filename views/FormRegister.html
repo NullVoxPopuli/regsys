@@ -25,6 +25,7 @@
 
 			{% if event.hasDiscounts -%}
 			{{- form.text('Discount Code:', 'discountCode') }}
+			Note: Discounts cannot be combined with other discounts (student / naptown member discount)
 			{%- endif %}
 
 			{{- form.radios('Position', 'position', [
@@ -159,7 +160,9 @@
 
 				</tbody>
 			</table>
-			<a href="http://www.swingin.org/2013/06/competitions/" target="_blank">Competition Information and Descriptions</a>
+			<a href="http://www.swingin.org/2013/06/competitions/" target="_blank">Competition Information and Descriptions</a><br/>
+			Note: Discounts cannot be combined with other discounts (group discount , etc)
+
 		</fieldset>
 		{%- endif %}
 

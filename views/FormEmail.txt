@@ -55,9 +55,12 @@ Total Cost: ${{ dancer.priceTotal }}{% if dancer.paymentMethod == 'PayPal' and o
 
 {% if dancer.priceTotal > 0 %}
 {% if dancer.paymentMethod == 'Mail' %}
-You still need to write a check to "{{ options.payableTo }}" and mail it to:
+You still need to write a check to "Naptown Stomp {{ options.payableTo }}" and mail it to:
 
 {{ options.mailingAddress }}
+Naptown Stomp
+P.O. Box 1051
+Indianapolis, IN 46206
 
 Your check must be postmarked by Auguest 19th, 2013.
 {% 	elseif dancer.paymentMethod == 'PayPal' %}
